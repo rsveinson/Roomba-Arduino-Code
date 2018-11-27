@@ -141,7 +141,7 @@ float getAngle(void){
 
 // 2 bytes, angle high byte, angle low byte
   while(mySerial.available()){
-    encoderData[i] = mySerial.read();
+    encoderData[i] = mySerial.read();   // encoder data is declared as and array of bytes
     //Serial.println("angle data read");
     i++;
   } // end while
@@ -155,6 +155,9 @@ float getAngle(void){
 */
   
   //angleDegrees = (int)(encoderData[0] << 8)|(int)(encoderData[1]&0xFF);
+  // word() converts a value to the word data type, it takes two arguments high byte and low byte
+  // i'm casting word to int because word is unsigned and i need signed
+  // still not sure why i'm casting encoderData as int
   rotation = (int)word((int)encoderData[0], (int)encoderData[1]);
   rotation /= 0.324056; 
   //Serial.print("degrees turned = ");
